@@ -58,8 +58,35 @@ router.post(
 //@route    PUT api/users/:id
 //@desc     update contact
 //@access   Private
-router.put("/:id", (req, res) => {
-  res.send("update task");
+router.put("/:id", aut, async (req, res) => {
+  const { name, description, status } = req.body;
+  // Build a tasks object
+  const taskFields = {};
+  if (name) taskFields.name = name;
+  if (description) taskFields.description = description;
+  if (status) taskFields.status = status;
+
+  try {
+    
+    let task = await Task.findById(req.params.id);
+
+    if (!task) return res.status(404).json({ msg: "task not found" });
+    
+    // make sure user owns task
+     if (task.user.toString() !== req.user.id) {
+      return res.status(401).json({ msg: "Not Authorized" });
+    // }
+
+    task = await Task.findByIdAndUpdate(
+      req.params.id,
+      { $set: taskFields },
+      { new: true }
+    );
+    res.json(task);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server Error on update task");
+  }
 });
 
 //@route    Post api/users
