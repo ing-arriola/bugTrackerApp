@@ -67,15 +67,14 @@ router.put("/:id", aut, async (req, res) => {
   if (status) taskFields.status = status;
 
   try {
-    
     let task = await Task.findById(req.params.id);
 
     if (!task) return res.status(404).json({ msg: "task not found" });
-    
+
     // make sure user owns task
-     if (task.user.toString() !== req.user.id) {
+    if (task.user.toString() !== req.user.id) {
       return res.status(401).json({ msg: "Not Authorized" });
-    // }
+    }
 
     task = await Task.findByIdAndUpdate(
       req.params.id,
@@ -92,8 +91,23 @@ router.put("/:id", aut, async (req, res) => {
 //@route    Post api/users
 //@desc     Delete contact
 //@access   Private
-router.delete("/:id", (req, res) => {
-  res.send("delete task");
+router.delete("/:id", aut, async (req, res) => {
+  try {
+    let task = await Task.findById(req.params.id);
+
+    if (!task) return res.status(404).json({ msg: "task not found" });
+
+    // make sure user owns task
+    if (task.user.toString() !== req.user.id) {
+      return res.status(401).json({ msg: "Not Authorized" });
+    }
+
+    await Task.findByIdAndRemove(req.params.id);
+    res.json({ msg: "Task Deleted" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server Error on update task");
+  }
 });
 
 module.exports = router;
