@@ -22,9 +22,38 @@ router.get("/", aut, async (req, res) => {
 //@route    POST api/task
 //@desc     Add new contact
 //@access   Private
-router.post("/", (req, res) => {
-  res.send("Add a new task");
-});
+router.post(
+  "/",
+  [
+    aut,
+    [
+      check("name", "Name is required").not().isEmpty(),
+      check("description", "Description is required").not().isEmpty(),
+      check("status", "Stauts is required").not().isEmpty(),
+    ],
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    const { name, description, status } = req.body;
+    try {
+      const newTask = new Task({
+        name,
+        description,
+        status,
+        user: req.user.id,
+      });
+      const task = await newTask.save();
+      res.json(task);
+    } catch (err) {
+      console.error(err);
+      res.status(500).send("Server Error on create new task");
+    }
+  }
+);
 
 //@route    PUT api/users/:id
 //@desc     update contact
