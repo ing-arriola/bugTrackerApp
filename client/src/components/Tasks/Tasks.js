@@ -1,4 +1,5 @@
 import React, { Fragment, useContext } from "react";
+import TaskItem from "./TaskItem";
 import TaskContext from "../../context/task/taskContext";
 
 const Tasks = () => {
@@ -7,7 +8,7 @@ const Tasks = () => {
   return (
     <Fragment>
       {tasks.map((task) => (
-        <h3>{task.name}</h3>
+        <TaskItem key={task.id} task={task} />
       ))}
     </Fragment>
   );
