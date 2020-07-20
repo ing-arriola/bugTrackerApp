@@ -2,7 +2,7 @@ import React, { Fragment, useContext } from "react";
 import TaskContext from "../../context/task/taskContext";
 
 const Tasks = () => {
-  const taskContext = useContext(taskContext);
+  const taskContext = useContext(TaskContext);
   const { tasks } = taskContext;
   return (
     <Fragment>

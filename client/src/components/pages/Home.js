@@ -1,9 +1,13 @@
 import React from "react";
+import Tasks from "../Tasks/Tasks";
 
 function Home() {
   return (
-    <div>
-      <h1>This is home</h1>
+    <div className="grid-2">
+      <div>{/* Task Form */}</div>
+      <div>
+        <Tasks />
+      </div>
     </div>
   );
 }
