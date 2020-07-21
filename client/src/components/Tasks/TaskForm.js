@@ -40,7 +40,7 @@ const TaskForm = () => {
       />
       <h5>Task Status</h5>
 
-      <select name="state" id="state">
+      <select name="status" id="status" onChange={onChange} value={status}>
         <option value="New">New</option>
         <option value="Assigned">Assigned</option>
         <option value="Open">Open</option>

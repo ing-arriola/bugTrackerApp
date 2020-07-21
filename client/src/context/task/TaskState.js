@@ -1,5 +1,5 @@
 import React, { useReducer } from "react";
-import uuid from "uuid";
+import { v4 as uuid } from "uuid";
 import TaskContext from "./taskContext";
 import taskReducer from "./taskReducer";
 import {
@@ -50,6 +50,7 @@ const TaskState = (props) => {
     <TaskContext.Provider
       value={{
         tasks: state.tasks,
+        addTask,
       }}
     >
       {props.children}
