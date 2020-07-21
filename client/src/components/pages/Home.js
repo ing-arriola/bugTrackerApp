@@ -5,7 +5,9 @@ import TaskForm from "../Tasks/TaskForm";
 function Home() {
   return (
     <div className="grid-2">
-      <div>{/* Task Form */}</div>
+      <div>
+        <TaskForm />
+      </div>
       <div>
         <Tasks />
       </div>

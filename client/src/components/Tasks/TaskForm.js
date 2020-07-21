@@ -1,6 +1,7 @@
-import React, { useState } from "react";
-
+import React, { useState, useContext } from "react";
+import TaskContext from "../../context/task/taskContext";
 const TaskForm = () => {
+  const taskContext = useContext(TaskContext);
   const [task, setTask] = useState({
     name: "",
     description: "",
@@ -10,8 +11,18 @@ const TaskForm = () => {
 
   const onChange = (e) => setTask({ ...task, [e.target.name]: e.target.value });
 
+  const onSubmit = (e) => {
+    e.preventDefaut();
+    taskContext.addTasl(task);
+    setTask({
+      name: "",
+      description: "",
+      status: "Not started",
+    });
+  };
+
   return (
-    <form>
+    <form onSubmit={onSubmit}>
       <h2 className="text-primary">Add Task</h2>
       <input
         type="text"

@@ -40,7 +40,12 @@ const TaskState = (props) => {
   };
 
   const [state, dispatch] = useReducer(taskReducer, initialState);
+  // Add contact
 
+  const addTask = (task) => {
+    task.id = uuid.v4();
+    dispatch({ type: ADD_CONTACT, payload: task });
+  };
   return (
     <TaskContext.Provider
       value={{
