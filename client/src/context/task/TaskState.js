@@ -37,6 +37,7 @@ const TaskState = (props) => {
         status: "Pending to create components but already made the desing",
       },
     ],
+    current: null,
   };
 
   const [state, dispatch] = useReducer(taskReducer, initialState);
@@ -51,6 +52,14 @@ const TaskState = (props) => {
   const deleteTask = (id) => {
     dispatch({ type: DELETE_TASK, payload: id });
   };
+  // Set current contact
+  const setTask = (task) => {
+    dispatch({ type: SET_CURRENT, payload: task });
+  };
+  const clearTask = () => {
+    dispatch({ type: CLEAR_CURRENT });
+  };
+
   return (
     <TaskContext.Provider
       value={{
