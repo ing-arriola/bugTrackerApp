@@ -23,7 +23,7 @@ export default (state, action) => {
     case SET_CURRENT:
       return {
         ...state,
-        task: action.payload,
+        current: action.payload,
       };
     case CLEAR_CURRENT:
       return {

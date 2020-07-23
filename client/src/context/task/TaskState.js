@@ -53,10 +53,10 @@ const TaskState = (props) => {
     dispatch({ type: DELETE_TASK, payload: id });
   };
   // Set current contact
-  const setTask = (task) => {
+  const setCurrent = (task) => {
     dispatch({ type: SET_CURRENT, payload: task });
   };
-  const clearTask = () => {
+  const clearCurrent = () => {
     dispatch({ type: CLEAR_CURRENT });
   };
 
@@ -64,8 +64,11 @@ const TaskState = (props) => {
     <TaskContext.Provider
       value={{
         tasks: state.tasks,
+        current: state.current,
         addTask,
         deleteTask,
+        setCurrent,
+        clearCurrent,
       }}
     >
       {props.children}
