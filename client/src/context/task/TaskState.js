@@ -3,12 +3,12 @@ import { v4 as uuid } from "uuid";
 import TaskContext from "./taskContext";
 import taskReducer from "./taskReducer";
 import {
-  ADD_CONTACT,
-  DELETE_CONTACT,
+  ADD_TASK,
+  DELETE_TASK,
   SET_CURRENT,
   CLEAR_CURRENT,
-  UPDATE_CONTACT,
-  FILTER_CONTACTS,
+  UPDATE_TASK,
+  FILTER_TASKSS,
   CLEAR_FILTER,
 } from "../types";
 
@@ -43,14 +43,20 @@ const TaskState = (props) => {
   // Add contact
 
   const addTask = (task) => {
-    task.id = uuid.v4();
-    dispatch({ type: ADD_CONTACT, payload: task });
+    task.id = 2324232444;
+    dispatch({ type: ADD_TASK, payload: task });
+  };
+
+  // Delete contact
+  const deleteTask = (id) => {
+    dispatch({ type: DELETE_TASK, payload: id });
   };
   return (
     <TaskContext.Provider
       value={{
         tasks: state.tasks,
         addTask,
+        deleteTask,
       }}
     >
       {props.children}

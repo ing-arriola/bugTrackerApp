@@ -1,9 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
+import TaskContext from "../../context/task/taskContext";
 
 const TaskItem = ({ task }) => {
+  const taskContext = useContext(TaskContext);
+  const { deleteTask } = taskContext;
   const { id, name, description, status } = task;
-  console.log(name);
+
+  const onDelete = () => {
+    deleteTask(id);
+  };
+
   return (
     <div className="card bg-light">
       <h3 className="text-primary text-left">{name}</h3>
@@ -21,7 +28,9 @@ const TaskItem = ({ task }) => {
       </ul>
       <p>
         <button className="btn btn-dark btn-sm">Edit</button>
-        <button className="btn btn-danger btn-sm">Delete</button>
+        <button className="btn btn-danger btn-sm" onClick={onDelete}>
+          Delete
+        </button>
       </p>
     </div>
   );

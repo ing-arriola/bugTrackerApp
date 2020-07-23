@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import TaskContext from "../../context/task/taskContext";
+
 const TaskForm = () => {
   const taskContext = useContext(TaskContext);
   const [task, setTask] = useState({
@@ -11,9 +12,9 @@ const TaskForm = () => {
 
   const onChange = (e) => setTask({ ...task, [e.target.name]: e.target.value });
 
-  const onSubmit = (e) => {
-    e.preventDefaut();
-    taskContext.addTasl(task);
+  const sendData = (e) => {
+    e.preventDefault();
+    taskContext.addTask(task);
     setTask({
       name: "",
       description: "",
@@ -22,7 +23,7 @@ const TaskForm = () => {
   };
 
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={sendData}>
       <h2 className="text-primary">Add Task</h2>
       <input
         type="text"
@@ -39,13 +40,19 @@ const TaskForm = () => {
         onChange={onChange}
       />
       <h5>Task Status</h5>
-
-      <select name="status" id="status" onChange={onChange} value={status}>
+      <input
+        type="text"
+        placeholder="status"
+        name="status"
+        value={status}
+        onChange={onChange}
+      />
+      {/* <select name="status" id="status" onChange={onChange}>
         <option value="New">New</option>
         <option value="Assigned">Assigned</option>
         <option value="Open">Open</option>
         <option value="Fixed">Fixed</option>
-      </select>
+      </select> */}
       <div>
         <input
           type="submit"
