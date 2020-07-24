@@ -1,8 +1,26 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import TaskContext from "../../context/task/taskContext";
 
 const TaskForm = () => {
   const taskContext = useContext(TaskContext);
+
+  const { addTask, current } = taskContext;
+
+  useEffect(() => {
+    if (current !== null) {
+      setTask(current);
+    } else {
+      setTask(
+        {
+          name: "",
+          description: "",
+          status: "Not started",
+        },
+        [taskContext, current]
+      );
+    }
+  });
+
   const [task, setTask] = useState({
     name: "",
     description: "",
@@ -14,7 +32,7 @@ const TaskForm = () => {
 
   const sendData = (e) => {
     e.preventDefault();
-    taskContext.addTask(task);
+    addTask(task);
     setTask({
       name: "",
       description: "",
