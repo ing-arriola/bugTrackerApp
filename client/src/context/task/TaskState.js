@@ -24,17 +24,16 @@ const TaskState = (props) => {
       },
       {
         id: 2,
-        name: "create route to insert taks",
+        name: "I have to check the route to insert taks",
         description:
-          "I must create and test the route related with add new tasks",
+          "I must check and test the route related with add new tasks",
         status: "just created but not tested",
       },
       {
         id: 3,
         name: "View for user suscription",
-        description:
-          "I must create and test the view where user make a suscription",
-        status: "Pending to create components but already made the desing",
+        description: "I have to deploy the view where user make a suscription",
+        status: "Pending to deploy components but already made the desing",
       },
     ],
     current: null,

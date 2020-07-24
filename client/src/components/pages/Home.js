@@ -1,6 +1,7 @@
 import React from "react";
 import Tasks from "../Tasks/Tasks";
 import TaskForm from "../Tasks/TaskForm";
+import TaskFilter from "../Tasks/TaskFilter";
 
 function Home() {
   return (
@@ -9,6 +10,7 @@ function Home() {
         <TaskForm />
       </div>
       <div>
+        <TaskFilter />
         <Tasks />
       </div>
     </div>

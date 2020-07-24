@@ -1,13 +1,21 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useRef, useEffect } from "react";
 import TaskContext from "../../context/task/taskContext";
-function TaskFilter() {
+const TaskFilter = () => {
   const taskContext = useContext(TaskContext);
   const text = useRef("");
+  const { clearFilter, filterTasks, filtered } = taskContext;
+
+  useEffect(() => {
+    if (filtered === null) {
+      text.current.value = "";
+    }
+  });
+
   const onChange = (e) => {
     if (text.current.value !== "") {
-      taskContext.TaskFilter(e.targe.value);
+      filterTasks(e.target.value);
     } else {
-      taskContext.clearFilter();
+      clearFilter();
     }
   };
   return (
@@ -20,6 +28,6 @@ function TaskFilter() {
       />
     </form>
   );
-}
+};
 
 export default TaskFilter;
