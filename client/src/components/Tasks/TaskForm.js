@@ -4,7 +4,7 @@ import TaskContext from "../../context/task/taskContext";
 const TaskForm = () => {
   const taskContext = useContext(TaskContext);
 
-  const { addTask, current } = taskContext;
+  const { addTask, current, clearCurrent } = taskContext;
 
   useEffect(() => {
     if (current !== null) {
@@ -40,9 +40,12 @@ const TaskForm = () => {
     });
   };
 
+  const clearAll = () => {
+    clearCurrent();
+  };
   return (
     <form onSubmit={sendData}>
-      <h2 className="text-primary">Add Task</h2>
+      <h2 className="text-primary">{current ? "Edit Task" : "Add Task"}</h2>
       <input
         type="text"
         placeholder="name"
@@ -74,10 +77,17 @@ const TaskForm = () => {
       <div>
         <input
           type="submit"
-          value="Add Task"
+          value={current ? "Update Task" : "Add Task"}
           className="btn btn-primary btn-block"
         />
       </div>
+      {current && (
+        <div>
+          <button className="btn btn-light btn-block" onClick={clearAll}>
+            Clear
+          </button>
+        </div>
+      )}
     </form>
   );
 };
