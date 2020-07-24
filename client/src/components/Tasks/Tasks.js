@@ -1,4 +1,5 @@
 import React, { Fragment, useContext } from "react";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
 import TaskItem from "./TaskItem";
 import TaskContext from "../../context/task/taskContext";
 
@@ -12,9 +13,19 @@ const Tasks = () => {
 
   return (
     <Fragment>
-      {filtered !== null
-        ? filtered.map((task) => <TaskItem key={task.id} task={task} />)
-        : tasks.map((task) => <TaskItem key={task.id} task={task} />)}
+      <TransitionGroup>
+        {filtered !== null
+          ? filtered.map((task) => (
+              <CSSTransition key={task.id} timeout={500} classNames="item">
+                <TaskItem task={task} />
+              </CSSTransition>
+            ))
+          : tasks.map((task) => (
+              <CSSTransition key={task.id} timeout={500} classNames="item">
+                <TaskItem task={task} />
+              </CSSTransition>
+            ))}
+      </TransitionGroup>
     </Fragment>
   );
 };
