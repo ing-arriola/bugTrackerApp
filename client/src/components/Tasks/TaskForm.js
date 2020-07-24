@@ -4,22 +4,19 @@ import TaskContext from "../../context/task/taskContext";
 const TaskForm = () => {
   const taskContext = useContext(TaskContext);
 
-  const { addTask, current, clearCurrent } = taskContext;
+  const { addTask, current, clearCurrent, updateTask } = taskContext;
 
   useEffect(() => {
     if (current !== null) {
       setTask(current);
     } else {
-      setTask(
-        {
-          name: "",
-          description: "",
-          status: "Not started",
-        },
-        [taskContext, current]
-      );
+      setTask({
+        name: "",
+        description: "",
+        status: "Not started",
+      });
     }
-  });
+  }, [current, taskContext]);
 
   const [task, setTask] = useState({
     name: "",
@@ -32,7 +29,11 @@ const TaskForm = () => {
 
   const sendData = (e) => {
     e.preventDefault();
-    addTask(task);
+    if (current === null) {
+      addTask(task);
+    } else {
+      updateTask(task);
+    }
     setTask({
       name: "",
       description: "",

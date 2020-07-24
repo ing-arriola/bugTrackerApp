@@ -30,6 +30,13 @@ export default (state, action) => {
         ...state,
         current: null,
       };
+    case UPDATE_TASK:
+      return {
+        ...state,
+        tasks: state.tasks.map((task) =>
+          task.id === action.payload.id ? action.payload : task
+        ),
+      };
     default:
       return state;
   }

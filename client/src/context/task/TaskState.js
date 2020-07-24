@@ -56,8 +56,13 @@ const TaskState = (props) => {
   const setCurrent = (task) => {
     dispatch({ type: SET_CURRENT, payload: task });
   };
+  // Clear current task
   const clearCurrent = () => {
     dispatch({ type: CLEAR_CURRENT });
+  };
+  // Update task
+  const updateTask = (task) => {
+    dispatch({ type: UPDATE_TASK, payload: task });
   };
 
   return (
@@ -69,6 +74,7 @@ const TaskState = (props) => {
         deleteTask,
         setCurrent,
         clearCurrent,
+        updateTask,
       }}
     >
       {props.children}
