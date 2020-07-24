@@ -8,7 +8,7 @@ import {
   SET_CURRENT,
   CLEAR_CURRENT,
   UPDATE_TASK,
-  FILTER_TASKSS,
+  FILTER_TASKS,
   CLEAR_FILTER,
 } from "../types";
 
@@ -38,6 +38,7 @@ const TaskState = (props) => {
       },
     ],
     current: null,
+    filtered: null,
   };
 
   const [state, dispatch] = useReducer(taskReducer, initialState);
@@ -64,17 +65,28 @@ const TaskState = (props) => {
   const updateTask = (task) => {
     dispatch({ type: UPDATE_TASK, payload: task });
   };
+  // Filter Tasks
+  const filterTasks = (text) => {
+    dispatch({ type: FILTER_TASKS, payload: text });
+  };
+  // Clear Filter
+  const clearFilter = () => {
+    dispatch({ type: CLEAR_FILTER });
+  };
 
   return (
     <TaskContext.Provider
       value={{
         tasks: state.tasks,
         current: state.current,
+        filtered: state.filtered,
         addTask,
         deleteTask,
         setCurrent,
         clearCurrent,
         updateTask,
+        filterTasks,
+        clearFilter,
       }}
     >
       {props.children}

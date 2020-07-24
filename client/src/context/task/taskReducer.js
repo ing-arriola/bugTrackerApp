@@ -4,7 +4,7 @@ import {
   SET_CURRENT,
   CLEAR_CURRENT,
   UPDATE_TASK,
-  FILTER_TASK,
+  FILTER_TASKS,
   CLEAR_FILTER,
 } from "../types";
 
@@ -36,6 +36,19 @@ export default (state, action) => {
         tasks: state.tasks.map((task) =>
           task.id === action.payload.id ? action.payload : task
         ),
+      };
+    case FILTER_TASKS:
+      return {
+        ...state,
+        filtered: state.tasks.filter((task) => {
+          const regex = new RegExp(`${action.payload}`, "gi");
+          return task.name.match(regex) || task.description.match(regex);
+        }),
+      };
+    case CLEAR_FILTER:
+      return {
+        ...state,
+        filtered: null,
       };
     default:
       return state;
