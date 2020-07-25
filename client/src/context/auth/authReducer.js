@@ -16,7 +16,7 @@ export default (state, action) => {
       return {
         ...state,
         ...action.payload,
-        isAthenticated: true,
+        isAuthenticated: true,
         loading: false,
       };
 
@@ -25,7 +25,7 @@ export default (state, action) => {
       return {
         ...state,
         token: null,
-        isAthenticated: false,
+        isAuthenticated: false,
         loading: false,
         user: null,
         error: action.payload,

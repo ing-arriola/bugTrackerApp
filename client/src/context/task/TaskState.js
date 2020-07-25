@@ -1,5 +1,5 @@
 import React, { useReducer } from "react";
-import { v4 as uuid } from "uuid";
+import { v4 as uuidv4 } from "uuid";
 import TaskContext from "./taskContext";
 import taskReducer from "./taskReducer";
 import {
@@ -44,7 +44,7 @@ const TaskState = (props) => {
   // Add contact
 
   const addTask = (task) => {
-    task.id = 2324232444;
+    task.id = uuidv4();
     dispatch({ type: ADD_TASK, payload: task });
   };
 
