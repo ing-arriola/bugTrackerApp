@@ -16,7 +16,7 @@ export default (state, action) => {
     case GET_TASKS:
       return {
         ...state,
-        tasks: [...state.tasks, action.payload],
+        tasks: action.payload,
         loading: false,
       };
     case ADD_TASK:

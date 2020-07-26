@@ -29,9 +29,15 @@ const TaskState = (props) => {
   const getTasks = async () => {
     try {
       const res = await axios.get("/api/tasks");
-      dispatch({ type: GET_TASKS, payload: res.data });
+      dispatch({
+        type: GET_TASKS,
+        payload: res.data,
+      });
     } catch (err) {
-      dispatch({ type: TASK_ERROR, payload: err.respose.msg });
+      dispatch({
+        type: TASK_ERROR,
+        payload: err.response.msg,
+      });
     }
   };
 
@@ -89,6 +95,7 @@ const TaskState = (props) => {
         updateTask,
         filterTasks,
         clearFilter,
+        getTasks,
       }}
     >
       {props.children}
