@@ -66,6 +66,27 @@ const TaskState = (props) => {
     }
   };
 
+  // Update task
+  const updateTask = async (task) => {
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+      },
+    };
+    try {
+      const res = await axios.put(`/api/tasks/${task._id}`, task, config);
+      dispatch({
+        type: UPDATE_TASK,
+        payload: res.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: TASK_ERROR,
+        payload: err.respose.msg,
+      });
+    }
+  };
+
   // clear tasks
   const clearTasks = () => {
     dispatch({ type: CLEAR_TASKS });
@@ -78,10 +99,6 @@ const TaskState = (props) => {
   // Clear current task
   const clearCurrent = () => {
     dispatch({ type: CLEAR_CURRENT });
-  };
-  // Update task
-  const updateTask = (task) => {
-    dispatch({ type: UPDATE_TASK, payload: task });
   };
   // Filter Tasks
   const filterTasks = (text) => {
