@@ -19,6 +19,7 @@ const TaskState = (props) => {
     tasks: [],
     current: null,
     filtered: null,
+    error: null,
   };
 
   const [state, dispatch] = useReducer(taskReducer, initialState);
@@ -31,7 +32,7 @@ const TaskState = (props) => {
       },
     };
     try {
-      const res = await axios.post("/api/contacts", contact, config);
+      const res = await axios.post("/api/tasks", task, config);
       dispatch({ type: ADD_TASK, payload: res.data });
     } catch (err) {
       dispatch({ type: TASK_ERROR, payload: err.respose.msg });
@@ -69,6 +70,7 @@ const TaskState = (props) => {
         tasks: state.tasks,
         current: state.current,
         filtered: state.filtered,
+        error: state.error,
         addTask,
         deleteTask,
         setCurrent,
