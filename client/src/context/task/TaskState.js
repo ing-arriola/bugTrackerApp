@@ -1,15 +1,16 @@
 import React, { useReducer } from "react";
 import axios from "axios";
-import { v4 as uuidv4 } from "uuid";
 import TaskContext from "./taskContext";
 import taskReducer from "./taskReducer";
 import {
+  GET_TASKS,
   ADD_TASK,
   DELETE_TASK,
   SET_CURRENT,
   CLEAR_CURRENT,
   UPDATE_TASK,
   FILTER_TASKS,
+  CLEAR_TASKS,
   CLEAR_FILTER,
   TASK_ERROR,
 } from "../types";
@@ -23,8 +24,18 @@ const TaskState = (props) => {
   };
 
   const [state, dispatch] = useReducer(taskReducer, initialState);
-  // Add contact
 
+  // Get Tasks
+  const getTasks = async () => {
+    try {
+      const res = await axios.get("/api/tasks");
+      dispatch({ type: GET_TASKS, payload: res.data });
+    } catch (err) {
+      dispatch({ type: TASK_ERROR, payload: err.respose.msg });
+    }
+  };
+
+  // Add Task
   const addTask = async (task) => {
     const config = {
       headers: {

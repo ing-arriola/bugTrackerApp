@@ -1,25 +1,35 @@
 import {
+  GET_TASKS,
   ADD_TASK,
   DELETE_TASK,
   SET_CURRENT,
   CLEAR_CURRENT,
   UPDATE_TASK,
   FILTER_TASKS,
+  CLEAR_TASKS,
   CLEAR_FILTER,
   TASK_ERROR,
 } from "../types";
 
 export default (state, action) => {
   switch (action.type) {
+    case GET_TASKS:
+      return {
+        ...state,
+        tasks: [...state.tasks, action.payload],
+        loading: false,
+      };
     case ADD_TASK:
       return {
         ...state,
         tasks: [...state.tasks, action.payload],
+        loading: false,
       };
     case DELETE_TASK:
       return {
         ...state,
         tasks: state.tasks.filter((task) => task.id !== action.payload),
+        loading: false,
       };
     case SET_CURRENT:
       return {
@@ -37,6 +47,7 @@ export default (state, action) => {
         tasks: state.tasks.map((task) =>
           task.id === action.payload.id ? action.payload : task
         ),
+        loading: false,
       };
     case FILTER_TASKS:
       return {
