@@ -1,4 +1,5 @@
 import React, { useReducer } from "react";
+import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import TaskContext from "./taskContext";
 import taskReducer from "./taskReducer";
@@ -10,32 +11,12 @@ import {
   UPDATE_TASK,
   FILTER_TASKS,
   CLEAR_FILTER,
+  TASK_ERROR,
 } from "../types";
 
 const TaskState = (props) => {
   const initialState = {
-    tasks: [
-      {
-        id: 1,
-        name: "create endpoint to insert users",
-        description:
-          "I must create and test the enpoint related with user suscription",
-        status: "Not started yet",
-      },
-      {
-        id: 2,
-        name: "I have to check the route to insert taks",
-        description:
-          "I must check and test the route related with add new tasks",
-        status: "just created but not tested",
-      },
-      {
-        id: 3,
-        name: "View for user suscription",
-        description: "I have to deploy the view where user make a suscription",
-        status: "Pending to deploy components but already made the desing",
-      },
-    ],
+    tasks: [],
     current: null,
     filtered: null,
   };
@@ -43,9 +24,18 @@ const TaskState = (props) => {
   const [state, dispatch] = useReducer(taskReducer, initialState);
   // Add contact
 
-  const addTask = (task) => {
-    task.id = uuidv4();
-    dispatch({ type: ADD_TASK, payload: task });
+  const addTask = async (task) => {
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+      },
+    };
+    try {
+      const res = await axios.post("/api/contacts", contact, config);
+      dispatch({ type: ADD_TASK, payload: res.data });
+    } catch (err) {
+      dispatch({ type: TASK_ERROR, payload: err.respose.msg });
+    }
   };
 
   // Delete contact

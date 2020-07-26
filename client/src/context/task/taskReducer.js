@@ -6,6 +6,7 @@ import {
   UPDATE_TASK,
   FILTER_TASKS,
   CLEAR_FILTER,
+  TASK_ERROR,
 } from "../types";
 
 export default (state, action) => {
