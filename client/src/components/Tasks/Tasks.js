@@ -12,7 +12,7 @@ const Tasks = () => {
     // eslint-disable-next-line
   }, []);
 
-  if (tasks.lenght === 0) {
+  if (tasks !== null && tasks.lenght === 0 && !loading) {
     return <h4>Please add a task</h4>;
   }
 

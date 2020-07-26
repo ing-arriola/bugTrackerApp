@@ -17,7 +17,7 @@ import {
 
 const TaskState = (props) => {
   const initialState = {
-    tasks: [],
+    tasks: null,
     current: null,
     filtered: null,
     error: null,
@@ -56,11 +56,17 @@ const TaskState = (props) => {
     }
   };
 
-  // Delete contact
+  // Delete task
   const deleteTask = (id) => {
     dispatch({ type: DELETE_TASK, payload: id });
   };
-  // Set current contact
+
+  // clear tasks
+  const clearTasks = () => {
+    dispatch({ type: CLEAR_TASKS });
+  };
+
+  // Set current task
   const setCurrent = (task) => {
     dispatch({ type: SET_CURRENT, payload: task });
   };
@@ -92,6 +98,7 @@ const TaskState = (props) => {
         deleteTask,
         setCurrent,
         clearCurrent,
+        clearTasks,
         updateTask,
         filterTasks,
         clearFilter,

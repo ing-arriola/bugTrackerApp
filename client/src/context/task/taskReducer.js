@@ -31,6 +31,14 @@ export default (state, action) => {
         tasks: state.tasks.filter((task) => task.id !== action.payload),
         loading: false,
       };
+    case CLEAR_TASKS:
+      return {
+        ...state,
+        tasks: null,
+        current: null,
+        filtered: null,
+        error: null,
+      };
     case SET_CURRENT:
       return {
         ...state,
